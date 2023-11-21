@@ -18,14 +18,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function my_dynamic_block_render_callback($attributes) {
 	$numberOfPosts = isset($attributes['numberOfPosts']) ? $attributes['numberOfPosts'] : 3;
-	$selectedPostType = isset($attributes['selectedPostType']) ? $attributes['selectedPostType'] : 'post';
+	$selectedPostType = isset($attributes['selectedPostType']) ? $attributes['selectedPostType'] : 'news';
+
+	if (!post_type_exists($selectedPostType)) {
+			return '<div class="custom-message"><p>表示できるカテゴリーがありません。</p></div>';
+	}
 
 	$args = array(
 			'post_type' => $selectedPostType,
 			'posts_per_page' => $numberOfPosts,
 	);
 	$query = new WP_Query($args);
-	
+
+	if (!$query->have_posts()) {
+			return '<p>投稿がありません。</p>';
+	}
+
 	$output = '<div class="wp-block-create-block-pf-posts">';
 	while ($query->have_posts()) {
 			$query->the_post();
@@ -40,9 +48,10 @@ function my_dynamic_block_render_callback($attributes) {
 }
 
 function pf_posts_pf_posts_block_init() {
-	register_block_type( __DIR__ . '/build', array(
+	register_block_type(__DIR__ . '/build', array(
 			'render_callback' => 'my_dynamic_block_render_callback',
 	));
 }
 
 add_action('init', 'pf_posts_pf_posts_block_init');
+
