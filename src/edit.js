@@ -1,4 +1,5 @@
 import { useSelect } from '@wordpress/data';
+import React, { useState, useEffect } from 'react';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { RangeControl, SelectControl, Spinner } from '@wordpress/components';
 
@@ -28,8 +29,25 @@ const Edit = ({ attributes, setAttributes }) => {
       return select('core').getEntityRecords('postType', selectedPostType, { per_page: numberOfPosts });
   	}, [ selectedPostType, numberOfPosts ]);
 
-		if (!posts || !postTypes) {
+		const [loading, setLoadeing] = useState(true);
+		const [hasPostTypes, setHasPostTypes] = useState(false);
+
+		useEffect(() => {
+			const timer = setTimeout(() => {
+				setLoadeing(false);
+				setHasPostTypes(postTypes && postTypes.length > 0);
+			}, 500);
+			return () => clearTimeout(timer)
+		}, [postTypes]);
+
+		console.log(postTypes);
+
+		if (loading) {
 			return <Spinner />;
+		};
+		
+		if (!hasPostTypes) {
+			return <p>表示できる投稿はありません。</p>;
 		};
 		
     return (
