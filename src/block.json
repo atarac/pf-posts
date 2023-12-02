@@ -18,7 +18,27 @@
     },
 		"selectedPostType": {
 			"type": "string",
-			"default": "news"
+			"default": "blog"
+		},
+		"isShowDate": {
+			"type": "boolean",
+			"default": true
+		},
+		"isShowModified": {
+			"type": "boolean",
+			"default": false
+		},
+		"isShowContent": {
+			"type": "boolean",
+			"default": true
+		},
+		"letterCounts": {
+			"type": "number",
+			"default": 50
+		},
+		"postDesign": {
+			"type": "string",
+			"default": "post-design1"
 		}
 	},
 	"textdomain": "pf-posts",
