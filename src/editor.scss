@@ -4,4 +4,12 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-
+.toggle-labels {
+  margin-bottom: 24px;
+  .components-toggle-control {
+    margin-bottom: 12px;
+  }
+  label {
+    font-size: 10.5px;
+  }
+}

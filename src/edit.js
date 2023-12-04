@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import {RangeControl, SelectControl, ToggleControl, Spinner, PanelBody } from '@wordpress/components';
 
+import './editor.scss';
+
 const formatDate = (dateString) => {
 	const date = new Date(dateString);
 	return date.toLocaleDateString('ja-JP', {
@@ -127,22 +129,24 @@ const Edit = ({ attributes, setAttributes }) => {
 							min={1}
 							max={5}
 						/>
-						<p>表示オプション</p>
-						<ToggleControl
-							label="投稿日の表示"
-							checked={ isShowDate }
-							onChange={ () => setAttributes({ isShowDate: !isShowDate }) }
-						/>
-						<ToggleControl
-							label="更新日の表示"
-							checked={ isShowModified }
-							onChange={ () => setAttributes({ isShowModified: !isShowModified }) }
-						/>
-						<ToggleControl
-							label="投稿内容の表示"
-							checked={ isShowContent }
-							onChange={ () => setAttributes({ isShowContent: !isShowContent }) }
-						/>
+						<p style={{ fontSize: '11px' }}>表示オプション</p>
+						<div className="toggle-labels">
+							<ToggleControl
+								label="投稿日の表示"
+								checked={ isShowDate }
+								onChange={ () => setAttributes({ isShowDate: !isShowDate }) }
+							/>
+							<ToggleControl
+								label="更新日の表示"
+								checked={ isShowModified }
+								onChange={ () => setAttributes({ isShowModified: !isShowModified }) }
+							/>
+							<ToggleControl
+								label="投稿内容の表示"
+								checked={ isShowContent }
+								onChange={ () => setAttributes({ isShowContent: !isShowContent }) }
+							/>
+						</div>
 						{ isShowContent &&
 							<RangeControl
 								label="投稿内容の表示文字数"
