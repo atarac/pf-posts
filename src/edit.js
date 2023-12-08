@@ -17,7 +17,7 @@ const formatDate = (dateString) => {
 const truncateText = (text, number) => {
 	const cleanedText = text.replace(/<[^>]+>/g, '').trimStart().trimEnd();
 	const truncatedText = cleanedText.length > number
-		? cleanedText.substring(0, number + 1) + '...'
+		? cleanedText.substring(0, number) + '...'
 		: cleanedText;
 	return truncatedText;
 };
